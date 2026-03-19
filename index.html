@@ -1,0 +1,449 @@
+```html
+<!doctype html>
+<html lang="sr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Automation Agency — Budućnost je automatizovana</title>
+
+  <!-- Tailwind CSS (CDN) -->
+  <script>
+    // Tailwind config for customizations (neon-ish cyan accent emphasis)
+    tailwind = window.tailwind || {};
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'neon': {
+              50:  '#ecfeff',
+              100: '#cffafe',
+              200: '#a5f3fc',
+              300: '#67e8f9',
+              400: '#22d3ee',
+              500: '#06b6d4', // cyan-500 like neon accent
+              600: '#0891b2',
+              700: '#075985',
+              800: '#063046',
+              900: '#021024'
+            }
+          },
+          boxShadow: {
+            'neon': '0 6px 24px rgba(6,182,212,0.18), 0 2px 8px rgba(6,182,212,0.08)'
+          },
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui']
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome (brands + icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-pQfm0k1q1uJ8z8K+7q5g5z7p7+ZcFZkYp5qk1Xb7G4r0q+P0GkM3G6U6/1qF3y3dK1l5e7q5b2x1Y6yJZ9g2w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Lucide Icons (for UI icons) -->
+  <script src="https://unpkg.com/lucide@latest/dist/lucide.min.js"></script>
+
+  <style>
+    /* small helper for neon text glow */
+    .neon-text {
+      text-shadow: 0 2px 10px rgba(6,182,212,0.22);
+    }
+
+    /* subtle glass card divider */
+    .card-glow {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(6,182,212,0.07);
+      backdrop-filter: blur(6px);
+    }
+
+    /* input autofill override for consistent dark style */
+    input:-webkit-autofill,
+    textarea:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0px 1000px #0f172a inset;
+      box-shadow: 0 0 0px 1000px #0f172a inset;
+      -webkit-text-fill-color: #e6eef6;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 antialiased">
+
+  <div class="min-h-screen flex flex-col">
+
+    <!-- NAVIGATION -->
+    <header class="py-6">
+      <nav class="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        <!-- Links (left) -->
+        <div class="flex items-center gap-6 order-1">
+          <a href="#services" class="text-slate-300 hover:text-neon-200 transition flex items-center gap-2">
+            <i data-lucide="zap" class="w-5 h-5 stroke-[1.5] text-neon-400"></i>
+            Usluge
+          </a>
+          <a href="#tech" class="text-slate-300 hover:text-neon-200 transition flex items-center gap-2">
+            <i data-lucide="cpu" class="w-5 h-5 stroke-[1.5] text-neon-400"></i>
+            Tehnologije
+          </a>
+          <a href="#contact" class="text-slate-300 hover:text-neon-200 transition flex items-center gap-2">
+            <i data-lucide="mail" class="w-5 h-5 stroke-[1.5] text-neon-400"></i>
+            Kontakt
+          </a>
+        </div>
+
+        <!-- Logo (right) -->
+        <div class="order-2 flex items-center gap-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-md flex items-center justify-center bg-gradient-to-br from-neon-500 to-cyan-600 shadow-neon">
+              <i class="fa-solid fa-robot text-slate-900"></i>
+            </div>
+            <div class="text-right">
+              <span class="text-slate-200 font-semibold">AI Automation</span>
+              <div class="text-xs text-slate-400 -mt-0.5">Agency</div>
+            </div>
+          </div>
+
+          <!-- Mobile menu button -->
+          <button id="navToggle" aria-expanded="false" aria-label="Toggle navigation"
+                  class="md:hidden p-2 rounded-md hover:bg-white/5 transition text-slate-300">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </nav>
+
+      <!-- Mobile nav panel -->
+      <div id="mobileNav" class="md:hidden mt-4 max-w-7xl mx-auto px-6 hidden">
+        <div class="bg-slate-900/40 border border-slate-800 rounded-lg p-4 flex flex-col gap-3">
+          <a href="#services" class="text-slate-200 hover:text-neon-200">Usluge</a>
+          <a href="#tech" class="text-slate-200 hover:text-neon-200">Tehnologije</a>
+          <a href="#contact" class="text-slate-200 hover:text-neon-200">Kontakt</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <main class="flex-1">
+      <section class="max-w-7xl mx-auto px-6 py-12 md:py-20">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+          <div class="md:col-span-7">
+            <p class="inline-flex items-center gap-3 text-sm text-neon-500/90 bg-slate-900/30 px-3 py-1 rounded-full mb-4">
+              <i data-lucide="sparkles" class="w-4 h-4"></i>
+              Nova usluga — Multi-Agent AI
+            </p>
+
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight neon-text text-slate-100">
+              Budućnost je automatizovana
+            </h1>
+
+            <p class="mt-6 text-lg text-slate-300 max-w-2xl">
+              Štedimo vaše vreme koristeći Multi-Agent AI sisteme — inteligentne tokove rada koji upravljaju repetitivnim zadacima,
+              generišu lidove i čine vaše timove produktivnijim.
+            </p>
+
+            <div class="mt-8 flex flex-wrap gap-4">
+              <a href="#contact" class="inline-flex items-center gap-3 bg-gradient-to-r from-neon-500 to-cyan-500 text-slate-900 font-semibold px-5 py-3 rounded-full shadow-neon hover:scale-[1.02] transition transform">
+                <i data-lucide="phone-call" class="w-5 h-5"></i>
+                Besplatna konsultacija
+              </a>
+
+              <a href="#services" class="inline-flex items-center gap-2 border border-slate-700 text-slate-200 px-4 py-3 rounded-full hover:border-neon-300 hover:text-neon-200 transition">
+                Pogledajte usluge
+              </a>
+            </div>
+
+            <div class="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-4">
+              <div class="text-xs text-slate-400">
+                <div class="text-sm text-slate-200 font-semibold">Brzi ROI</div>
+                Implementacije prilagođene ciljevima.
+              </div>
+              <div class="text-xs text-slate-400">
+                <div class="text-sm text-slate-200 font-semibold">Skalabilno</div>
+                Agent-based arhitekture koje rastu s vama.
+              </div>
+              <div class="text-xs text-slate-400">
+                <div class="text-sm text-slate-200 font-semibold">Sigurnost</div>
+                Privatnost podataka i kontrola pristupa.
+              </div>
+            </div>
+          </div>
+
+          <div class="md:col-span-5">
+            <div class="card-glow rounded-2xl p-6 border border-slate-800/70 shadow-lg">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="text-xs text-slate-400">Demo interfejs</div>
+                  <div class="mt-2 text-slate-200 font-semibold">Multi-Agent Workflow</div>
+                </div>
+                <div class="text-sm text-slate-400">Online</div>
+              </div>
+
+              <div class="mt-6 bg-slate-900/40 border border-slate-800 rounded-xl p-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-md bg-gradient-to-br from-neon-500 to-cyan-500 flex items-center justify-center text-slate-900">
+                    <i class="fa-solid fa-robot"></i>
+                  </div>
+                  <div>
+                    <div class="text-sm text-slate-200 font-semibold">Agent: LeadHarvester</div>
+                    <div class="text-xs text-slate-400">Prati i verifikuje potencijalne lidove.</div>
+                  </div>
+                </div>
+
+                <div class="mt-4 grid grid-cols-2 gap-3 text-xs">
+                  <div class="py-2 px-3 bg-slate-900/60 rounded-md text-slate-300">Status: Active</div>
+                  <div class="py-2 px-3 bg-slate-900/60 rounded-md text-slate-300">Tasks: 12</div>
+                </div>
+
+                <div class="mt-4 flex gap-3">
+                  <button class="flex-1 bg-neon-500/10 text-neon-200 border border-neon-500/30 px-3 py-2 rounded-md hover:bg-neon-500/12 transition">Start</button>
+                  <button class="flex-1 bg-slate-800/50 text-slate-200 px-3 py-2 rounded-md hover:bg-slate-800/60 transition">Detalji</button>
+                </div>
+              </div>
+
+              <div class="mt-4 text-xs text-slate-400">Integracije: GitHub · Zapier · Python scripts</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SERVICES -->
+      <section id="services" class="max-w-7xl mx-auto px-6 py-12">
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold text-slate-100">Naše usluge</h2>
+          <p class="text-slate-400 mt-2">Cilj je jednostavan: automatizovati složene zadatke i unaprediti produktivnost vašeg biznisa.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Card: AI Chatbots -->
+          <article class="card-glow rounded-2xl p-6 border border-slate-800 hover:shadow-neon transition transform hover:-translate-y-1">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-lg flex items-center justify-center bg-gradient-to-br from-neon-500 to-cyan-500 text-slate-900">
+                <i class="fa-solid fa-comments"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-slate-100">AI Chatbots</h3>
+                <p class="text-slate-400 text-sm mt-1">Vodeći chatbotovi za prodaju, podršku i internu komunikaciju.</p>
+              </div>
+            </div>
+
+            <ul class="mt-4 text-slate-300 text-sm space-y-2">
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-neon-400"></i> Personalizovane konverzacije</li>
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-neon-400"></i> Integracija sa CRM-om</li>
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-neon-400"></i> 24/7 dostupnost</li>
+            </ul>
+
+            <div class="mt-6">
+              <a href="#contact" class="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-neon-500 text-slate-900 font-medium">Saznaj više</a>
+            </div>
+          </article>
+
+          <!-- Card: Workflow Automation -->
+          <article class="card-glow rounded-2xl p-6 border border-slate-800 hover:shadow-neon transition transform hover:-translate-y-1">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-lg flex items-center justify-center bg-gradient-to-br from-neon-500 to-cyan-500 text-slate-900">
+                <i class="fa-solid fa-cogs"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-slate-100">Workflow Automation</h3>
+                <p class="text-slate-400 text-sm mt-1">Automatski tokovi rada koji povezuju alate i štede sate rada.</p>
+              </div>
+            </div>
+
+            <ul class="mt-4 text-slate-300 text-sm space-y-2">
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-neon-400"></i> Automatizacija back-office zadataka</li>
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-neon-400"></i> Integracije: Zapier, APIs, Webhooks</li>
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-neon-400"></i> Monitoring i alerting</li>
+            </ul>
+
+            <div class="mt-6">
+              <a href="#contact" class="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-neon-500 text-slate-900 font-medium">Saznaj više</a>
+            </div>
+          </article>
+
+          <!-- Card: AI Lead Gen -->
+          <article class="card-glow rounded-2xl p-6 border border-slate-800 hover:shadow-neon transition transform hover:-translate-y-1">
+            <div class="flex items-center gap-4">
+              <div class="w-14 h-14 rounded-lg flex items-center justify-center bg-gradient-to-br from-neon-500 to-cyan-500 text-slate-900">
+                <i class="fa-solid fa-magnet"></i>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold text-slate-100">AI Lead Gen</h3>
+                <p class="text-slate-400 text-sm mt-1">Automatsko pronalaženje i kvalifikacija potencijalnih klijenata.</p>
+              </div>
+            </div>
+
+            <ul class="mt-4 text-slate-300 text-sm space-y-2">
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-neon-400"></i> Generisanje leadova kroz scraping & enrichment</li>
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-neon-400"></i> Automatsko slanje prvog outreach-a</li>
+              <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-neon-400"></i> Povezivanje sa sales pipelines</li>
+            </ul>
+
+            <div class="mt-6">
+              <a href="#contact" class="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-neon-500 text-slate-900 font-medium">Saznaj više</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- TECH STACK -->
+      <section id="tech" class="max-w-7xl mx-auto px-6 py-12">
+        <div class="mb-6">
+          <h2 class="text-2xl font-bold text-slate-100">Tech stack</h2>
+          <p class="text-slate-400 mt-2">Alati i tehnologije koje koristimo za izgradnju i integraciju sistema.</p>
+        </div>
+
+        <div class="flex items-center gap-6 flex-wrap">
+          <!-- GitHub -->
+          <div class="flex items-center gap-3 p-4 rounded-xl border border-slate-800 bg-slate-900/40">
+            <i class="fab fa-github text-2xl text-slate-200"></i>
+            <div>
+              <div class="text-slate-100 font-semibold">GitHub</div>
+              <div class="text-xs text-slate-400">CI/CD & repo management</div>
+            </div>
+          </div>
+
+          <!-- Zapier -->
+          <div class="flex items-center gap-3 p-4 rounded-xl border border-slate-800 bg-slate-900/40">
+            <i class="fa-brands fa-zapier text-2xl text-amber-400"></i>
+            <div>
+              <div class="text-slate-100 font-semibold">Zapier</div>
+              <div class="text-xs text-slate-400">No-code integracije & webhooks</div>
+            </div>
+          </div>
+
+          <!-- Python -->
+          <div class="flex items-center gap-3 p-4 rounded-xl border border-slate-800 bg-slate-900/40">
+            <i class="fab fa-python text-2xl text-sky-300"></i>
+            <div>
+              <div class="text-slate-100 font-semibold">Python</div>
+              <div class="text-xs text-slate-400">Scripts, scraping & ML pipelines</div>
+            </div>
+          </div>
+
+          <!-- Additional small techs -->
+          <div class="flex items-center gap-3 p-4 rounded-xl border border-slate-800 bg-slate-900/40">
+            <i data-lucide="server" class="w-6 h-6 text-slate-200"></i>
+            <div>
+              <div class="text-slate-100 font-semibold">APIs</div>
+              <div class="text-xs text-slate-400">Custom connectors & webhooks</div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 p-4 rounded-xl border border-slate-800 bg-slate-900/40">
+            <i data-lucide="cloud" class="w-6 h-6 text-slate-200"></i>
+            <div>
+              <div class="text-slate-100 font-semibold">Cloud</div>
+              <div class="text-xs text-slate-400">Deploy & monitoring</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER + CONTACT FORM (UI only) -->
+    <footer id="contact" class="bg-slate-900/50 border-t border-slate-800">
+      <div class="max-w-7xl mx-auto px-6 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <h3 class="text-xl font-bold text-slate-100">Kontaktirajte nas</h3>
+            <p class="text-slate-400 mt-2">Pošaljite upit za besplatnu konsultaciju i demo implementaciju.</p>
+
+            <div class="mt-6 text-slate-400 text-sm space-y-3">
+              <div class="flex items-center gap-3">
+                <i data-lucide="mail" class="w-5 h-5"></i>
+                hello@aiautomation.example
+              </div>
+              <div class="flex items-center gap-3">
+                <i data-lucide="phone-call" class="w-5 h-5"></i>
+                +381 60 123 4567
+              </div>
+              <div class="flex items-center gap-3">
+                <i data-lucide="map-pin" class="w-5 h-5"></i>
+                Beograd, Srbija
+              </div>
+            </div>
+          </div>
+
+          <div class="md:col-span-2">
+            <div class="card-glow rounded-2xl p-6 border border-slate-800">
+              <form class="grid grid-cols-1 md:grid-cols-2 gap-4" onsubmit="event.preventDefault(); alert('UI-only: Forma ne šalje podatke.');">
+                <div>
+                  <label class="text-xs text-slate-400">Ime</label>
+                  <input type="text" placeholder="Vaše ime" class="mt-1 w-full bg-slate-900/60 border border-slate-800 rounded-md px-3 py-2 text-slate-100 focus:outline-none focus:ring-2 focus:ring-neon-400" />
+                </div>
+
+                <div>
+                  <label class="text-xs text-slate-400">Email</label>
+                  <input type="email" placeholder="ime@domen.com" class="mt-1 w-full bg-slate-900/60 border border-slate-800 rounded-md px-3 py-2 text-slate-100 focus:outline-none focus:ring-2 focus:ring-neon-400" />
+                </div>
+
+                <div class="md:col-span-2">
+                  <label class="text-xs text-slate-400">Poruka</label>
+                  <textarea rows="4" placeholder="Kratak opis problema ili cilja" class="mt-1 w-full bg-slate-900/60 border border-slate-800 rounded-md px-3 py-2 text-slate-100 focus:outline-none focus:ring-2 focus:ring-neon-400"></textarea>
+                </div>
+
+                <div class="md:col-span-2 flex items-center justify-between gap-4">
+                  <div class="text-xs text-slate-400">Klikom na Pošalji prihvatate uslove korišćenja.</div>
+                  <button type="submit" class="inline-flex items-center gap-2 bg-neon-500 text-slate-900 px-4 py-2 rounded-md font-semibold hover:scale-[1.02] transition">
+                    <i data-lucide="send" class="w-4 h-4"></i>
+                    Pošalji poruku
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="mt-8 border-t border-slate-800 pt-6 text-slate-500 text-sm flex items-center justify-between">
+          <div>© <span id="year"></span> AI Automation Agency. Sva prava zadržana.</div>
+          <div class="flex items-center gap-4">
+            <a href="#" class="text-slate-400 hover:text-neon-200"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="text-slate-400 hover:text-neon-200"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="text-slate-400 hover:text-neon-200"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Initialize lucide icons
+    if (window.lucide) {
+      window.lucide.createIcons();
+    }
+
+    // Mobile nav toggle
+    const navToggle = document.getElementById('navToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    navToggle?.addEventListener('click', () => {
+      const open = mobileNav.classList.toggle('hidden') === false;
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      // change icon
+      const icon = navToggle.querySelector('[data-lucide]');
+      if (icon) {
+        icon.parentNode.innerHTML = '';
+        if (open) {
+          // show X
+          const x = document.createElement('i');
+          x.setAttribute('data-lucide', 'x');
+          x.className = 'w-6 h-6';
+          navToggle.appendChild(x);
+        } else {
+          const m = document.createElement('i');
+          m.setAttribute('data-lucide', 'menu');
+          m.className = 'w-6 h-6';
+          navToggle.appendChild(m);
+        }
+        if (window.lucide) window.lucide.createIcons();
+      }
+    });
+
+    // set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+```
